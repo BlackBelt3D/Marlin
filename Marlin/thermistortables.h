@@ -79,6 +79,9 @@
 #if ANY_THERMISTOR_IS(13) // Hisens thermistor B25/50 =3950 +/-1%
   #include "thermistortable_13.h"
 #endif
+#if ANY_THERMISTOR_IS(15) // BLACKBELT heatbelt thermistor
+  #include "thermistortable_15.h"
+#endif
 #if ANY_THERMISTOR_IS(20) // PT100 with INA826 amp on Ultimaker v2.0 electronics
   #include "thermistortable_20.h"
 #endif

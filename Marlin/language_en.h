@@ -61,7 +61,7 @@
   #define MSG_PROGRESS_BAR_TEST               _UxGT("Progress Bar Test")
 #endif
 #ifndef MSG_AUTO_HOME
-  #define MSG_AUTO_HOME                       _UxGT("Auto home")
+  #define MSG_AUTO_HOME                       _UxGT("Home X") // BLACKBELT no good Y/Z homing
 #endif
 #ifndef MSG_AUTO_HOME_X
   #define MSG_AUTO_HOME_X                     _UxGT("Home X")
@@ -94,10 +94,10 @@
   #define MSG_HOME_OFFSETS_APPLIED            _UxGT("Offsets applied")
 #endif
 #ifndef MSG_SET_ORIGIN
-  #define MSG_SET_ORIGIN                      _UxGT("Set origin")
+  #define MSG_SET_ORIGIN                      _UxGT("Set Z origin")
 #endif
 #ifndef MSG_PREHEAT_1
-  #define MSG_PREHEAT_1                       _UxGT("Preheat PLA")
+  #define MSG_PREHEAT_1                       _UxGT("Preheat nGen")  //BLACKBELT nGen
 #endif
 #ifndef MSG_PREHEAT_1_N
   #define MSG_PREHEAT_1_N                     MSG_PREHEAT_1 _UxGT(" ")
@@ -115,7 +115,7 @@
   #define MSG_PREHEAT_1_SETTINGS              MSG_PREHEAT_1 _UxGT(" conf")
 #endif
 #ifndef MSG_PREHEAT_2
-  #define MSG_PREHEAT_2                       _UxGT("Preheat ABS")
+  #define MSG_PREHEAT_2                       _UxGT("Preheat HT")  //BLACKBELT HT
 #endif
 #ifndef MSG_PREHEAT_2_N
   #define MSG_PREHEAT_2_N                     MSG_PREHEAT_2 _UxGT(" ")

@@ -1851,7 +1851,7 @@ void kill_screen(const char* lcd_msg) {
       MENU_BACK(MSG_PREPARE);
 
       if (!(axis_known_position[X_AXIS] && axis_known_position[Y_AXIS] && axis_known_position[Z_AXIS]))
-        MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+        MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28 X"));       // BLACKBELT: only X homing
       else if (leveling_is_valid()) {
         _level_state = leveling_is_active();
         MENU_ITEM_EDIT_CALLBACK(bool, MSG_BED_LEVELING, &_level_state, _lcd_toggle_bed_leveling);
@@ -2227,7 +2227,7 @@ void kill_screen(const char* lcd_msg) {
       ubl_lcd_map_control = true; // Return to the map screen
       if (lcdDrawUpdate) lcd_implementation_drawmenu_static(LCD_HEIGHT < 3 ? 0 : (LCD_HEIGHT > 4 ? 2 : 1), PSTR(MSG_LEVEL_BED_HOMING));
       lcdDrawUpdate = LCDVIEW_CALL_NO_REDRAW;
-      if (axis_homed[X_AXIS] && axis_homed[Y_AXIS] && axis_homed[Z_AXIS])
+      if (axis_homed[X_AXIS])  // Don't home Y and Z on the BLACKBELT
         lcd_goto_screen(_lcd_ubl_output_map_lcd);
     }
 
@@ -2444,7 +2444,7 @@ void kill_screen(const char* lcd_msg) {
     //
     // Auto Home
     //
-    MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
+    MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28 X"));
     #if ENABLED(INDIVIDUAL_AXIS_HOMING_MENU)
       MENU_ITEM(gcode, MSG_AUTO_HOME_X, PSTR("G28 X"));
       MENU_ITEM(gcode, MSG_AUTO_HOME_Y, PSTR("G28 Y"));
@@ -2475,8 +2475,8 @@ void kill_screen(const char* lcd_msg) {
       //
       // Set Home Offsets
       //
-      MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
-      //MENU_ITEM(gcode, MSG_SET_ORIGIN, PSTR("G92 X0 Y0 Z0"));
+      //MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
+      //MENU_ITEM(gcode, MSG_SET_ORIGIN, PSTR("G92 Z0"));
     #endif
 
     //
@@ -2935,7 +2935,7 @@ void kill_screen(const char* lcd_msg) {
     MENU_BACK(MSG_MAIN);
     MENU_ITEM(submenu, MSG_TEMPERATURE, lcd_control_temperature_menu);
     MENU_ITEM(submenu, MSG_MOTION, lcd_control_motion_menu);
-    MENU_ITEM(submenu, MSG_FILAMENT, lcd_control_filament_menu);
+//    MENU_ITEM(submenu, MSG_FILAMENT, lcd_control_filament_menu);
 
     #if HAS_LCD_CONTRAST
       MENU_ITEM_EDIT_CALLBACK(int3, MSG_CONTRAST, (int*)&lcd_contrast, LCD_CONTRAST_MIN, LCD_CONTRAST_MAX, lcd_callback_set_contrast, true);
@@ -3170,12 +3170,12 @@ void kill_screen(const char* lcd_msg) {
     //
     // Preheat Material 1 conf
     //
-    MENU_ITEM(submenu, MSG_PREHEAT_1_SETTINGS, lcd_control_temperature_preheat_material1_settings_menu);
+    //MENU_ITEM(submenu, MSG_PREHEAT_1_SETTINGS, lcd_control_temperature_preheat_material1_settings_menu);
 
     //
     // Preheat Material 2 conf
     //
-    MENU_ITEM(submenu, MSG_PREHEAT_2_SETTINGS, lcd_control_temperature_preheat_material2_settings_menu);
+    //MENU_ITEM(submenu, MSG_PREHEAT_2_SETTINGS, lcd_control_temperature_preheat_material2_settings_menu);
     END_MENU();
   }
 
@@ -3297,10 +3297,10 @@ void kill_screen(const char* lcd_msg) {
     #endif
 
     // M205 S Min Feedrate
-    MENU_ITEM_EDIT(float3, MSG_VMIN, &planner.min_feedrate_mm_s, 0, 999);
+    //MENU_ITEM_EDIT(float3, MSG_VMIN, &planner.min_feedrate_mm_s, 0, 999);
 
     // M205 T Min Travel Feedrate
-    MENU_ITEM_EDIT(float3, MSG_VTRAV_MIN, &planner.min_travel_feedrate_mm_s, 0, 999);
+    //MENU_ITEM_EDIT(float3, MSG_VTRAV_MIN, &planner.min_travel_feedrate_mm_s, 0, 999);
 
     END_MENU();
   }
@@ -3311,13 +3311,13 @@ void kill_screen(const char* lcd_msg) {
     MENU_BACK(MSG_MOTION);
 
     // M204 P Acceleration
-    MENU_ITEM_EDIT(float5, MSG_ACC, &planner.acceleration, 10, 99000);
+    //MENU_ITEM_EDIT(float5, MSG_ACC, &planner.acceleration, 10, 99000);
 
     // M204 R Retract Acceleration
-    MENU_ITEM_EDIT(float5, MSG_A_RETRACT, &planner.retract_acceleration, 100, 99000);
+    //MENU_ITEM_EDIT(float5, MSG_A_RETRACT, &planner.retract_acceleration, 100, 99000);
 
     // M204 T Travel Acceleration
-    MENU_ITEM_EDIT(float5, MSG_A_TRAVEL, &planner.travel_acceleration, 100, 99000);
+    //MENU_ITEM_EDIT(float5, MSG_A_TRAVEL, &planner.travel_acceleration, 100, 99000);
 
     // M201 settings
     MENU_ITEM_EDIT_CALLBACK(long5, MSG_AMAX MSG_X, &planner.max_acceleration_mm_per_s2[X_AXIS], 100, 99000, _reset_acceleration_rates);
