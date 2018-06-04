@@ -780,6 +780,11 @@
 #define Y_HOME_DIR 1
 #define Z_HOME_DIR -1
 
+// Disable homing per axis
+#define X_HOME_DISABLE false
+#define Y_HOME_DISABLE true
+#define Z_HOME_DISABLE true
+
 // @section machine
 
 // The size of the print bed

@@ -2914,7 +2914,7 @@ static void homeaxis(const AxisEnum axis) {
     if (axis != Z_AXIS) { BUZZ(100, 880); return; }
   #else
     #define CAN_HOME(A) \
-      (axis == A##_AXIS && ((A##_MIN_PIN > -1 && A##_HOME_DIR < 0) || (A##_MAX_PIN > -1 && A##_HOME_DIR > 0)))
+      (DISABLED(A##_HOME_DISABLE) && (axis == A##_AXIS && ((A##_MIN_PIN > -1 && A##_HOME_DIR < 0) || (A##_MAX_PIN > -1 && A##_HOME_DIR > 0))))
     if (!CAN_HOME(X) && !CAN_HOME(Y) && !CAN_HOME(Z)) return;
   #endif
 
@@ -4051,7 +4051,7 @@ inline void gcode_G28(const bool always_home_all) {
       }
     }
 
-    #if ENABLED(QUICK_HOME)
+    #if ENABLED(QUICK_HOME) && !(ENABLED(X_HOME_DISABLE) || ENABLED(Y_HOME_DISABLE))
 
       if (home_all || (homeX && homeY)) quick_home_xy();
 
