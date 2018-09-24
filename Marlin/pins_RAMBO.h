@@ -62,7 +62,8 @@
 #define Y_MIN_PIN          11
 #define Y_MAX_PIN          23
 #define Z_MIN_PIN          10
-#define Z_MAX_PIN          30
+#define FIL_RUNOUT_PIN     30
+//#define Z_MAX_PIN          30
 
 //
 // Z Probe (when not Z_MIN_PIN)
@@ -130,7 +131,7 @@
 #ifndef FAN_PIN
   #define FAN_PIN           8
 #endif
-#define FAN1_PIN            6
+#define FAN1_PIN            7 //6
 #define FAN2_PIN            2
 
 //
