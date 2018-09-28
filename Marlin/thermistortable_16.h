@@ -1,4 +1,7 @@
 /**
+ * BLACKBELT belt thermistor
+ * Copyright (C) 2018 [https://github.com/BlackBelt3D/Marlin]
+ *
  * Marlin 3D Printer Firmware
  * Copyright (C) 2016 MarlinFirmware [https://github.com/MarlinFirmware/Marlin]
  *
@@ -20,39 +23,21 @@
  *
  */
 
-// 100k thermistor (104GT-2)
-// ATC Semitec 104GT-2 (Used in ParCan)
-// Verified by linagee. Source: http://shop.arcol.hu/static/datasheets/thermistors.pdf
-// Calculated using 4.7kohm pullup, voltage divider math, and manufacturer provided temp/resistance
+// BLACKBELT
 const short temptable_16[][2] PROGMEM = {
-  {    1 * OVERSAMPLENR, 713 },
-  {   17 * OVERSAMPLENR, 255 }, // top rating 300C
-  {   20 * OVERSAMPLENR, 245 },
-  {   23 * OVERSAMPLENR, 235 },
-  {   27 * OVERSAMPLENR, 225 },
-  {   31 * OVERSAMPLENR, 235 },
-  {   37 * OVERSAMPLENR, 225 },
-  {   43 * OVERSAMPLENR, 215 },
-  {   51 * OVERSAMPLENR, 205 },
-  {   61 * OVERSAMPLENR, 195 },
-  {   73 * OVERSAMPLENR, 185 },
-  {   87 * OVERSAMPLENR, 175 },
-  {  106 * OVERSAMPLENR, 165 },
-  {  128 * OVERSAMPLENR, 155 },
-  {  155 * OVERSAMPLENR, 145 },
-  {  189 * OVERSAMPLENR, 135 },
-  {  230 * OVERSAMPLENR, 116 },
-  {  278 * OVERSAMPLENR, 108 },
-  {  336 * OVERSAMPLENR, 100 },
-  {  402 * OVERSAMPLENR,  93 },
-  {  476 * OVERSAMPLENR,  87 },
-  {  554 * OVERSAMPLENR,  80 },
-  {  635 * OVERSAMPLENR,  73 },
-  {  713 * OVERSAMPLENR,  66 },
-  {  784 * OVERSAMPLENR,  59 },
-  {  846 * OVERSAMPLENR,  53 },
-  {  897 * OVERSAMPLENR,  46 },
-  {  937 * OVERSAMPLENR,  39 },
+  {  111 * OVERSAMPLENR, 195 },
+  {  192 * OVERSAMPLENR, 165 },
+  {  230 * OVERSAMPLENR, 155 },
+  {  275 * OVERSAMPLENR, 145 },
+  {  315 * OVERSAMPLENR, 135 },
+  {  380 * OVERSAMPLENR, 120 },
+  {  430 * OVERSAMPLENR, 110 },
+  {  500 * OVERSAMPLENR,  95 },
+  {  554 * OVERSAMPLENR,  85 },
+  {  664 * OVERSAMPLENR,  70 },
+  {  774 * OVERSAMPLENR,  60 },
+  {  860 * OVERSAMPLENR,  50 },
+  {  935 * OVERSAMPLENR,  40 },
   {  966 * OVERSAMPLENR,  30 },
   {  986 * OVERSAMPLENR,  20 },
   { 1000 * OVERSAMPLENR,  10 },
