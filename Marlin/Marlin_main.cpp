@@ -3086,7 +3086,7 @@ static void homeaxis(const AxisEnum axis) {
     if (axis != Z_AXIS) { BUZZ(100, 880); return; }
   #else
     #define CAN_HOME(A) \
-      (DISABLED(A##_HOME_DISABLE) && (axis == _AXIS(A) && ((A##_MIN_PIN > -1 && A##_HOME_DIR < 0) || (A##_MAX_PIN > -1 && A##_HOME_DIR > 0))))
+      (axis == _AXIS(A) && ((A##_MIN_PIN > -1 && A##_HOME_DIR < 0) || (A##_MAX_PIN > -1 && A##_HOME_DIR > 0)))
     if (!CAN_HOME(X) && !CAN_HOME(Y) && !CAN_HOME(Z)) return;
   #endif
 
@@ -3097,6 +3097,32 @@ static void homeaxis(const AxisEnum axis) {
       SERIAL_EOL();
     }
   #endif
+
+  // BLACKBELT Homing
+  if (axis == Z_AXIS) {
+    // BLACKBELT z axis is a continuous belt, so homing is inherently irrelevant
+    // Do nothing, except reset axis to home position
+    set_axis_is_at_home(axis);
+    return;
+  }
+  else if (axis == Y_AXIS) {
+    // BLACKBELT y axis does not have endstops
+	current_position[Y_AXIS] = 440;
+
+    stepper.digitalPotWrite(5, 25);
+    stepper.digitalPotWrite(1, 25);
+
+    sync_plan_position();
+    current_position[Y_AXIS] = 0;
+    planner.buffer_line(current_position[X_AXIS], current_position[Y_AXIS], current_position[Z_AXIS], current_position[E_CART], 3000, active_extruder);
+	planner.synchronize();
+
+    stepper.digitalPotWrite(5,140);
+    stepper.digitalPotWrite(1,140);
+
+	set_axis_is_at_home(axis);
+	return;
+  }
 
   const int axis_home_dir = (
     #if ENABLED(DUAL_X_CARRIAGE)
@@ -4323,7 +4349,7 @@ inline void gcode_G28(const bool always_home_all) {
       }
     }
 
-    #if ENABLED(QUICK_HOME) && !(ENABLED(X_HOME_DISABLE) || ENABLED(Y_HOME_DISABLE))
+    #if ENABLED(QUICK_HOME)
 
       if (home_all || (homeX && homeY)) quick_home_xy();
 
