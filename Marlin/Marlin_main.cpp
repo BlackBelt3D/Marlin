@@ -3103,7 +3103,7 @@ static void homeaxis(const AxisEnum axis) {
   }
   else if (axis == Y_AXIS) {
     // BLACKBELT y axis does not have endstops
-	current_position[Y_AXIS] = 440;
+    current_position[Y_AXIS] = 440;
 
     stepper.digitalPotWrite(5, 25);
     stepper.digitalPotWrite(1, 25);
@@ -3111,13 +3111,13 @@ static void homeaxis(const AxisEnum axis) {
     sync_plan_position();
     current_position[Y_AXIS] = 0;
     planner.buffer_line(current_position[X_AXIS], current_position[Y_AXIS], current_position[Z_AXIS], current_position[E_CART], 3000, active_extruder);
-	planner.synchronize();
+    planner.synchronize();
 
     stepper.digitalPotWrite(5,140);
     stepper.digitalPotWrite(1,140);
 
-	set_axis_is_at_home(axis);
-	return;
+    set_axis_is_at_home(axis);
+    return;
   }
 
   const int axis_home_dir = (
