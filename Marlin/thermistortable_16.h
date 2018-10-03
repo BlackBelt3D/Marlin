@@ -24,7 +24,7 @@
  */
 
 // BLACKBELT
-const short temptable_15[][2] PROGMEM = {
+const short temptable_16[][2] PROGMEM = {
   {  111 * OVERSAMPLENR, 195 },
   {  192 * OVERSAMPLENR, 165 },
   {  230 * OVERSAMPLENR, 155 },
