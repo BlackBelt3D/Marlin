@@ -2668,12 +2668,14 @@ void lcd_quick_feedback(const bool clear_buttons) {
     //
     // Auto Home
     //
+    /* BLACKBELT: Remove Auto Home menu item
     MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
     #if ENABLED(INDIVIDUAL_AXIS_HOMING_MENU)
       MENU_ITEM(gcode, MSG_AUTO_HOME_X, PSTR("G28 X"));
       MENU_ITEM(gcode, MSG_AUTO_HOME_Y, PSTR("G28 Y"));
       MENU_ITEM(gcode, MSG_AUTO_HOME_Z, PSTR("G28 Z"));
     #endif
+    */
 
     //
     // TMC Z Calibration
@@ -2716,12 +2718,14 @@ void lcd_quick_feedback(const bool clear_buttons) {
         MENU_ITEM(function, MSG_LEVEL_CORNERS, _lcd_level_bed_corners);
     #endif
 
+    /* BLACKBELT: Remove Set Home Offsets menu item
     #if HAS_M206_COMMAND && DISABLED(SLIM_LCD_MENUS)
       //
       // Set Home Offsets
       //
       MENU_ITEM(function, MSG_SET_HOME_OFFSETS, lcd_set_home_offsets);
     #endif
+    */
 
     //
     // Disable Steppers
@@ -2731,6 +2735,7 @@ void lcd_quick_feedback(const bool clear_buttons) {
     //
     // Change filament
     //
+    /* BLACKBELT: Remove Change filament menu item
     #if ENABLED(ADVANCED_PAUSE_FEATURE)
       if (!IS_SD_FILE_OPEN) {
         #if E_STEPPERS == 1 && !ENABLED(FILAMENT_LOAD_UNLOAD_GCODES)
@@ -2743,6 +2748,7 @@ void lcd_quick_feedback(const bool clear_buttons) {
         #endif
       }
     #endif // ADVANCED_PAUSE_FEATURE
+    */
 
     #if HAS_TEMP_HOTEND
 
