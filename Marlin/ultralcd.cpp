@@ -863,6 +863,7 @@ void lcd_quick_feedback(const bool clear_buttons) {
         planner.synchronize();
         point_t park_point = NOZZLE_PARK_POINT;
         Nozzle::park(2, park_point);
+        planner.synchronize();
       #endif
       lcd_setstatusPGM(PSTR(MSG_PRINT_ABORTED), -1);
       lcd_return_to_status();
@@ -2673,14 +2674,12 @@ void lcd_quick_feedback(const bool clear_buttons) {
     //
     // Auto Home
     //
-    /* BLACKBELT: Remove Auto Home menu item
     MENU_ITEM(gcode, MSG_AUTO_HOME, PSTR("G28"));
     #if ENABLED(INDIVIDUAL_AXIS_HOMING_MENU)
       MENU_ITEM(gcode, MSG_AUTO_HOME_X, PSTR("G28 X"));
       MENU_ITEM(gcode, MSG_AUTO_HOME_Y, PSTR("G28 Y"));
       MENU_ITEM(gcode, MSG_AUTO_HOME_Z, PSTR("G28 Z"));
     #endif
-    */
 
     //
     // TMC Z Calibration
