@@ -3095,14 +3095,9 @@ static void homeaxis(const AxisEnum axis) {
   #endif
 
   // BLACKBELT Homing
-  if (axis == Z_AXIS) {
-    // BLACKBELT z axis is a continuous belt, so homing is inherently irrelevant
-    // Do nothing, except reset axis to home position
-    set_axis_is_at_home(axis);
-    return;
-  }
-  else if (axis == Y_AXIS) {
+  if (axis == Y_AXIS) {
     // BLACKBELT y axis does not have endstops
+    // Instead of testing for endstops, we have it gently run into the belt
     current_position[Y_AXIS] = 440;
 
     stepper.digitalPotWrite(5, 25);
@@ -3116,6 +3111,13 @@ static void homeaxis(const AxisEnum axis) {
     stepper.digitalPotWrite(5,140);
     stepper.digitalPotWrite(1,140);
 
+    set_axis_is_at_home(axis);
+
+    return;
+  }
+  if (axis == Z_AXIS) {
+    // BLACKBELT z axis is a continuous belt, so homing is inherently irrelevant
+    // Do nothing, except reset axis to home position
     set_axis_is_at_home(axis);
     return;
   }
@@ -4311,6 +4313,12 @@ inline void gcode_G28(const bool always_home_all) {
 
   #else // NOT Delta or Hangprinter
 
+    // BLACKBELT Homing
+    if(!TEST(axis_known_position, Z_AXIS)) {
+        // If the belt was not homed before, mark it as homed now
+        set_axis_is_at_home(Z_AXIS);
+    }
+
     const bool homeX = always_home_all || parser.seen('X'),
                homeY = always_home_all || parser.seen('Y'),
                homeZ = always_home_all || parser.seen('Z'),
@@ -4324,12 +4332,16 @@ inline void gcode_G28(const bool always_home_all) {
 
     #endif
 
+    // BLACKBELT Homing
+    const float z_homing_height = 0;
+    /*
     const float z_homing_height = (
       #if ENABLED(UNKNOWN_Z_NO_RAISE)
         !TEST(axis_known_position, Z_AXIS) ? 0 :
       #endif
           (parser.seenval('R') ? parser.value_linear_units() : Z_HOMING_HEIGHT)
     );
+    */
 
     if (z_homing_height && (home_all || homeX || homeY)) {
       // Raise Z before homing any other axes and z is not already high enough (never lower z)
@@ -4398,6 +4410,12 @@ inline void gcode_G28(const bool always_home_all) {
     #if DISABLED(HOME_Y_BEFORE_X)
       if (home_all || homeY) homeaxis(Y_AXIS);
     #endif
+
+    // BLACKBELT Homing
+    if(!TEST(axis_known_position, Y_AXIS)) {
+      // If the Y axis was not homed before, home it now
+      homeaxis(Y_AXIS);
+    }
 
     // Home Z last if homing towards the bed
     #if Z_HOME_DIR < 0
@@ -7093,7 +7111,6 @@ inline void gcode_M17() {
       wait_for_user = false;
 
     #else
-
       do {
         if (purge_length > 0) {
           // "Wait for filament purge"
@@ -7125,7 +7142,6 @@ inline void gcode_M17() {
           0
         #endif
       );
-
     #endif
 
     return true;
