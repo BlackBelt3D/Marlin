@@ -7111,6 +7111,8 @@ inline void gcode_M17() {
       wait_for_user = false;
 
     #else
+      // BLACKBELT Disable purge
+/*
       do {
         if (purge_length > 0) {
           // "Wait for filament purge"
@@ -7142,6 +7144,7 @@ inline void gcode_M17() {
           0
         #endif
       );
+*/
     #endif
 
     return true;
