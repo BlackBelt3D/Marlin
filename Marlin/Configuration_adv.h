@@ -1020,6 +1020,8 @@
   //#define FILAMENT_UNLOAD_ALL_EXTRUDERS         // Allow M702 to unload all extruders above a minimum target temp (as set by M302)
 #endif
 
+#define PARK_HEAD_ON_STOP                         // Park the nozzle during pause and filament change.
+
 // @section tmc
 
 /**

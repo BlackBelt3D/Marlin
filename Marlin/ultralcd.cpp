@@ -859,6 +859,11 @@ void lcd_quick_feedback(const bool clear_buttons) {
     void lcd_sdcard_stop() {
       wait_for_heatup = wait_for_user = false;
       abort_sd_printing = true;
+      #if ENABLED(PARK_HEAD_ON_STOP)
+        planner.synchronize();
+        point_t park_point = NOZZLE_PARK_POINT;
+        Nozzle::park(2, park_point);
+      #endif
       lcd_setstatusPGM(PSTR(MSG_PRINT_ABORTED), -1);
       lcd_return_to_status();
     }

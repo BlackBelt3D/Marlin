@@ -269,3 +269,8 @@
 #endif
 
 #endif // ULTRALCD_H
+
+#if ENABLED(PARK_HEAD_ON_STOP)
+  #include "point_t.h"
+  #include "nozzle.h"
+#endif
