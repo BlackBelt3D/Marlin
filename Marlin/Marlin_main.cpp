@@ -3098,14 +3098,14 @@ static void homeaxis(const AxisEnum axis) {
   if (axis == Y_AXIS) {
     // BLACKBELT y axis does not have endstops
     // Instead of testing for endstops, we have it gently run into the belt
-    current_position[Y_AXIS] = 440;
+    current_position[Y_AXIS] = 150;
 
     stepper.digitalPotWrite(5, 25);
     stepper.digitalPotWrite(1, 25);
 
     sync_plan_position();
     current_position[Y_AXIS] = 0;
-    planner.buffer_line(current_position[X_AXIS], current_position[Y_AXIS], current_position[Z_AXIS], current_position[E_CART], 3000, active_extruder);
+    planner.buffer_line(current_position[X_AXIS], current_position[Y_AXIS], current_position[Z_AXIS], current_position[E_CART], 18, active_extruder);
     planner.synchronize();
 
     stepper.digitalPotWrite(5,140);
