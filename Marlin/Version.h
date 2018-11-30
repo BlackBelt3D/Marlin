@@ -41,14 +41,14 @@
    * Verbose version identifier which should contain a reference to the location
    * from where the binary was downloaded or the source code was compiled.
    */
-  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (BLACKBELT-3D 3.5.1)"
+  #define DETAILED_BUILD_VERSION SHORT_BUILD_VERSION " (BLACKBELT-3D 3.6.0)"
 
   /**
    * The STRING_DISTRIBUTION_DATE represents when the binary file was built,
    * here we define this default string as the date where the latest release
    * version was tagged.
    */
-  #define STRING_DISTRIBUTION_DATE "2018-11-01"
+  #define STRING_DISTRIBUTION_DATE "2018-11-30"
 
   /**
    * Required minimum Configuration.h and Configuration_adv.h file versions.
