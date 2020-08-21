@@ -63,17 +63,17 @@
 #define Y_MIN_PIN                             11
 #define Y_MAX_PIN                             23
 #define Z_MIN_PIN                             10
-#define Z_MAX_PIN                             30
+#define Z_MAX_PIN                             -1
 
 //
 // Z Probe (when not Z_MIN_PIN)
 //
 #ifndef Z_MIN_PROBE_PIN
-  #define Z_MIN_PROBE_PIN                     30
+  #define Z_MIN_PROBE_PIN                     -1
 #endif
 
 #ifndef FIL_RUNOUT_PIN
-  #define FIL_RUNOUT_PIN                       5
+  #define FIL_RUNOUT_PIN                       30
 #endif
 
 //
@@ -128,14 +128,14 @@
 // Heaters / Fans
 //
 #define HEATER_0_PIN                           9
-#define HEATER_1_PIN                           7
+#define HEATER_1_PIN                           -1
 #define HEATER_2_PIN                           6
 #define HEATER_BED_PIN                         3
 
 #ifndef FAN_PIN
   #define FAN_PIN                              8
 #endif
-#define FAN1_PIN                               6
+#define FAN1_PIN                               7
 #define FAN2_PIN                               2
 
 //
