@@ -1287,6 +1287,44 @@ void do_homing_move(const AxisEnum axis, const float distance, const feedRate_t 
     DEBUG_ECHOLNPGM(")");
   }
 
+  #if ENABLED(IS_BLACKBELT)
+    switch(axis) {
+      case Y_AXIS:
+        // BLACKBELT y axis does not have endstops
+        // Instead of testing for endstops, we have it gently run into the belt
+        current_position[Y_AXIS] = 150;
+
+        static const uint8_t digipot_channels[] = DIGIPOT_CHANNELS;
+        static const uint8_t digipot_motor_current[] = DIGIPOT_MOTOR_CURRENT;
+
+        stepper.digitalPotWrite(digipot_channels[1], 25);
+        stepper.digitalPotWrite(digipot_channels[4], 25);
+
+        sync_plan_position();
+        current_position[Y_AXIS] = 0;
+        planner.buffer_line(current_position[X_AXIS], current_position[Y_AXIS], current_position[Z_AXIS], current_position[E_AXIS], 18, active_extruder);
+        planner.synchronize();
+
+        stepper.digitalPotWrite(digipot_channels[1],digipot_motor_current[1]);
+        stepper.digitalPotWrite(digipot_channels[4],digipot_motor_current[4]);
+
+        set_axis_is_at_home(axis);
+
+        return; // done homing this axis
+        break;
+      case Z_AXIS:
+        // BLACKBELT z axis is a continuous belt, so homing is inherently irrelevant
+        // Do nothing, except reset axis to home position
+        set_axis_is_at_home(axis);
+
+        return; // done homing this axis
+        break;
+      default:
+        // BLACKBELT x axis is homed as a normal axis
+        break;
+    }
+  #endif
+
   #if ALL(HOMING_Z_WITH_PROBE, HAS_HEATED_BED, WAIT_FOR_BED_HEATER)
     // Wait for bed to heat back up between probing points
     if (axis == Z_AXIS && distance < 0)
